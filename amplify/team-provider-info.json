@@ -17,6 +17,9 @@
       },
       "auth": {
         "postagram8fdbc16a": {}
+      },
+      "storage": {
+        "images": {}
       }
     }
   }
