@@ -9,6 +9,7 @@ export const getPost = /* GraphQL */ `
       location
       description
       image
+      owner
       createdAt
       updatedAt
       __typename
@@ -28,6 +29,7 @@ export const listPosts = /* GraphQL */ `
         location
         description
         image
+        owner
         createdAt
         updatedAt
         __typename

@@ -9,6 +9,9 @@ export default function Header() {
       <Link to="/" className={linkStyle}>
         All Posts
       </Link>
+      <Link to="/myposts" className={linkStyle}>
+        My Posts
+      </Link>
     </div>
   );
 }

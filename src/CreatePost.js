@@ -48,21 +48,34 @@ export default function CreatePost({
     try {
       const { name, description, location, image } = formState;
       if (!name || !description || !location || !image.name) return;
-      updateFormState(currentState => ({ ...currentState, saving: true }));
+      updateFormState((currentState) => ({ ...currentState, saving: true }));
       const postId = uuid();
-      const postInfo = { name, description, location, image: formState.image.name, id: postId };
-
+      const postInfo = {
+        name,
+        description,
+        location,
+        image: formState.image.name,
+        id: postId,
+      };
+  
       await Storage.put(formState.image.name, formState.image.fileInfo);
       await API.graphql({
-        query: createPost, variables: { input: postInfo }
-      });
-      updatePosts([...posts, { ...postInfo, image: formState.file }]);
-      updateFormState(currentState => ({ ...currentState, saving: false }));
+        query: createPost,
+        variables: { input: postInfo },
+        authMode: "AMAZON_COGNITO_USER_POOLS",
+      }); // updated
+      const { username } = await Auth.currentAuthenticatedUser(); // new
+      updatePosts([
+        ...posts,
+        { ...postInfo, image: formState.file, owner: username },
+      ]); // updated
+      updateFormState((currentState) => ({ ...currentState, saving: false }));
       updateOverlayVisibility(false);
     } catch (err) {
-      console.log('error: ', err);
+      console.log("error: ", err);
     }
   }
+  
 
   return (
     <div className={containerStyle}>
