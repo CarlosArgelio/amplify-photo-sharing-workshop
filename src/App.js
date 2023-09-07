@@ -2,15 +2,19 @@
 import React, { useState, useEffect } from "react";
 
 // import API from Amplify library
-import { API } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 
 // import query definition
 import { listPosts } from "./graphql/queries";
 
-function App() {
+import { withAuthenticator } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+function App({ signOut, user }) {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     fetchPosts();
+    checkUser();
   }, []);
   async function fetchPosts() {
     try {
@@ -19,6 +23,11 @@ function App() {
     } catch (err) {
       console.log({ err });
     }
+  }
+  async function checkUser() {
+    const user = await Auth.currentAuthenticatedUser();
+    console.log("user:", user);
+    console.log("user attributes: ", user.attributes);
   }
   return (
     <div>
@@ -30,9 +39,10 @@ function App() {
           <p>{post.description}</p>
         </div>
       ))}
+      <button onClick={signOut}>Sign out</button>
     </div>
   );
 }
 
 
-export default App;
+export default withAuthenticator(App);
