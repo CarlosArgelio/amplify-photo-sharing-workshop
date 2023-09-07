@@ -9,4 +9,3 @@ type Post @model {
   description: String!
   image: String
 }
-
