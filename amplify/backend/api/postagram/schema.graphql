@@ -13,4 +13,19 @@ type Post
   description: String!
   image: String
   owner: String
+  comments: [Comment] @hasMany
+}
+
+type Comment
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: public, operations: [read] }
+      { allow: private, operations: [read] }
+    ]
+  ) {
+  id: ID
+  message: String
+  owner: String
 }

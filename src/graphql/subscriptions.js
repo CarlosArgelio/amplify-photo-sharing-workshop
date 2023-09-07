@@ -13,6 +13,19 @@ export const onCreatePost = /* GraphQL */ `
       description
       image
       owner
+      comments {
+        items {
+          id
+          message
+          owner
+          createdAt
+          updatedAt
+          postCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -31,6 +44,19 @@ export const onUpdatePost = /* GraphQL */ `
       description
       image
       owner
+      comments {
+        items {
+          id
+          message
+          owner
+          createdAt
+          updatedAt
+          postCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -49,8 +75,69 @@ export const onDeletePost = /* GraphQL */ `
       description
       image
       owner
+      comments {
+        items {
+          id
+          message
+          owner
+          createdAt
+          updatedAt
+          postCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateComment = /* GraphQL */ `
+  subscription OnCreateComment(
+    $filter: ModelSubscriptionCommentFilterInput
+    $owner: String
+  ) {
+    onCreateComment(filter: $filter, owner: $owner) {
+      id
+      message
+      owner
+      createdAt
+      updatedAt
+      postCommentsId
+      __typename
+    }
+  }
+`;
+export const onUpdateComment = /* GraphQL */ `
+  subscription OnUpdateComment(
+    $filter: ModelSubscriptionCommentFilterInput
+    $owner: String
+  ) {
+    onUpdateComment(filter: $filter, owner: $owner) {
+      id
+      message
+      owner
+      createdAt
+      updatedAt
+      postCommentsId
+      __typename
+    }
+  }
+`;
+export const onDeleteComment = /* GraphQL */ `
+  subscription OnDeleteComment(
+    $filter: ModelSubscriptionCommentFilterInput
+    $owner: String
+  ) {
+    onDeleteComment(filter: $filter, owner: $owner) {
+      id
+      message
+      owner
+      createdAt
+      updatedAt
+      postCommentsId
       __typename
     }
   }

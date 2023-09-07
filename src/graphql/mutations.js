@@ -13,6 +13,19 @@ export const createPost = /* GraphQL */ `
       description
       image
       owner
+      comments {
+        items {
+          id
+          message
+          owner
+          createdAt
+          updatedAt
+          postCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -31,6 +44,19 @@ export const updatePost = /* GraphQL */ `
       description
       image
       owner
+      comments {
+        items {
+          id
+          message
+          owner
+          createdAt
+          updatedAt
+          postCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -49,8 +75,69 @@ export const deletePost = /* GraphQL */ `
       description
       image
       owner
+      comments {
+        items {
+          id
+          message
+          owner
+          createdAt
+          updatedAt
+          postCommentsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
+      __typename
+    }
+  }
+`;
+export const createComment = /* GraphQL */ `
+  mutation CreateComment(
+    $input: CreateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    createComment(input: $input, condition: $condition) {
+      id
+      message
+      owner
+      createdAt
+      updatedAt
+      postCommentsId
+      __typename
+    }
+  }
+`;
+export const updateComment = /* GraphQL */ `
+  mutation UpdateComment(
+    $input: UpdateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    updateComment(input: $input, condition: $condition) {
+      id
+      message
+      owner
+      createdAt
+      updatedAt
+      postCommentsId
+      __typename
+    }
+  }
+`;
+export const deleteComment = /* GraphQL */ `
+  mutation DeleteComment(
+    $input: DeleteCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    deleteComment(input: $input, condition: $condition) {
+      id
+      message
+      owner
+      createdAt
+      updatedAt
+      postCommentsId
       __typename
     }
   }
